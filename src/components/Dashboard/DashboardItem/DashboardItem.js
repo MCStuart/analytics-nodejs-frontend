@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { TextItem, ChartItem, RealTimeItem } from './DataItems';
 import { numberWithCommas, isMobile } from '../../../utils';
+
 const styles = (theme) => ({
   paper: {
     marginLeft: theme.spacing(1),
@@ -30,6 +31,7 @@ const styles = (theme) => ({
   },
 });
 class DashboardItem extends Component {
+
   constructor(props) {
     super(props);
     const {
@@ -50,10 +52,12 @@ class DashboardItem extends Component {
       data: 'No data',
     };
   }
+
   componentDidMount() {
     this.getMetricData();
     this.getClassNames();
   }
+
   getMetricData() {
     const { visual, metric } = this.state;
     const strippedMetric = metric.replace(' ', '');
@@ -87,6 +91,7 @@ class DashboardItem extends Component {
         this.setState({ data: formattedValue });
       });
   }
+
   getClassNames() {
     const { priority, visual } = this.state;
     const { classes } = this.props;
@@ -107,6 +112,7 @@ class DashboardItem extends Component {
     }
     this.setState({ classNames });
   }
+
   getVisualComponent() {
     const { data, visual, type } = this.state;
     let component;
@@ -124,6 +130,7 @@ class DashboardItem extends Component {
     }
     return component;
   }
+
   render() {
     const {
       classNames,
@@ -134,13 +141,14 @@ class DashboardItem extends Component {
     return (
       <Grid item xs={(isMobile || !size) ? 'auto' : size} zeroMinWidth>
         <Paper className={`${classNames}`}>
-          <h2>{ metric }</h2>
+          <h2>{metric}</h2>
           {visualComponent}
         </Paper>
       </Grid>
     );
   }
 }
+
 DashboardItem.propTypes = {
   size: PropTypes.number,
   priority: PropTypes.string,
@@ -149,10 +157,12 @@ DashboardItem.propTypes = {
   classes: PropTypes.object.isRequired,
   metric: PropTypes.string.isRequired,
 };
+
 DashboardItem.defaultProps = {
   size: null,
   priority: null,
   visual: 'text',
   type: null,
 };
+
 export default withStyles(styles)(DashboardItem);
